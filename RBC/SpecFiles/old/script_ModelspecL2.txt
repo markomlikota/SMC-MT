@@ -1,0 +1,42 @@
+# Our model written in the form required by package "SolveDSGE"
+
+states:
+k, z, b
+end
+
+jumps:
+y, c, l, i, ac, acdev
+end
+
+shocks:
+εz
+εb
+end
+
+parameters:
+ρz
+σz
+ρb
+σb
+r
+τ
+α
+δ
+ν
+ϕ1
+ϕ2
+Zstar
+Bstar
+end
+
+equations:
+(1.0 - α) * y / l = Bstar * exp(b) * c^τ * l^(1/ν)
+i = k(+1) - (1-δ)*k
+ac = ϕ1 / ϕ2^2 * ( exp(-ϕ2*(k(+1)/k - 1)) + ϕ2*(k(+1)/k - 1) - 1)
+y = Zstar * exp(z) * k^α * l^(1-α)
+c = y - i - k*ac
+acdev = ϕ1/ϕ2 * (1-exp(-ϕ2*(k(+1)/k-1)))
+c^(-τ) * (1+ acdev) = 1/(1 + r/400) * c(+1)^(-τ) * ( α * y(+1)/k(+1) + 1 - δ - ac(+1) + acdev(+1)*( i(+1)/k(+1)+ 1-δ ) )
+z(+1) = ρz * z + σz * εz
+b(+1) = ρb * b + σb * εb
+end
