@@ -1,0 +1,406 @@
+nx = 7 
+ 
+ny = 10 
+ 
+ns = 4 
+ 
+nv = 17 
+ 
+ne = 17 
+ 
+jumps_to_approximate = [1, 2, 4, 5, 8, 9] 
+ 
+eqns_to_approximate = [7, 16, 17] 
+ 
+variables = OrderedCollections.OrderedDict("g" => 1, "a" => 2, "lambda_p" => 3, "e" => 4, "y" => 5, "R" => 6, "w" => 7, "c" => 8, "dy" => 9, "dwnom" => 10, "infl" => 11, "dw" => 12, "Phi_p" => 13, "Phi_w" => 14, "Phi_p_der" => 15, "Phi_w_der" => 16, "mu" => 17) 
+ 
+function nlsolve_static_equations(f::Array{T,1},x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f[1] = x[2] - ((1-(p[9]))*log((p[11])) + (p[9])*x[2] + (p[10])*0.0)
+  f[2] = x[1] - ((1-(p[12]))*log((p[14])) + (p[12])*x[1] + (p[13])*0.0)
+  f[3] = x[3] - ((1-(p[22]))*log((p[3])) + (p[22])*x[3] + (p[23])*0.0)
+  f[4] = x[4] - ((p[18])*0.0)
+  f[5] = 0 - (exp(x[12])- (exp(x[7])/exp(x[7]))*exp(x[2]))
+  f[6] = 0 - (x[9] - x[5] + x[5])
+  f[7] = 0 - (1 -  (p[2]) * (exp(x[8])/exp(x[8]))^(-(p[1])) * (1/exp(x[2])) * exp(x[6]) * (1/exp(x[11])))
+  f[8] = 0 - (exp(x[7]) - (1-x[13]) + x[17])
+  f[9] = 0 - (x[13]  -(((p[7])/(p[8])^(2))*(exp(-(p[8])*(exp(x[11])-(p[19])))+ (p[8])*(exp(x[11])-(p[19]))-1)))
+  f[10] = 0 - (x[15] - ((p[7])/(p[8]))*(1-exp(-(p[8])*(exp(x[11])-(p[19])))))
+  f[11] = 0 - (x[6] -((p[15])*x[6] + (1-(p[15]))*(log((((p[11])/(p[2]))*(p[19]))) + (p[16])*(x[11]-log((p[19]))) + (p[17])*(x[9] + x[2] - log((p[11]))))) - x[4])
+  f[12] = 0 - (exp(x[8]) + ((exp(x[1])-1)/exp(x[1]))*exp(x[5]) -(exp(x[5])*(1-x[13]) -exp(x[7])*exp(x[5])*x[14]))
+  f[13] = 0 - (x[14]  -(((p[5])/(p[6])^(2))*(exp(-(p[6])*(exp(x[12])*exp(x[11])-(p[11])* (p[19])))+(p[6])*(exp(x[12])*exp(x[11])-(p[11])*(p[19]))-1)))
+  f[14] = 0 - (x[16] - ((p[5])/(p[6]))*(1-exp(-(p[6])*(exp(x[12])*exp(x[11])- (p[11])*(p[19])))))
+  f[15] = 0 - (x[10] - x[12] - x[11])
+  f[16] = 0 - (((p[20])/(p[4]))*(1/exp(x[7]))*(exp(x[8])^((p[1])))*exp(x[5])^((1/(p[21]))) + (1-x[14])*(1-(1/(p[4])))-exp(x[11])*exp(x[12])*x[16] +(p[2])*(((exp(x[8])/exp(x[8]))^(-(p[1])) * (1/exp(x[2])))*exp(x[11])* (exp(x[12])^(2))*exp(x[9])*x[16]))
+  f[17] = 0 - ((1-x[13]) - exp(x[11])*x[15] - (x[17]/exp(x[3])) + (p[2])* (((exp(x[8])/exp(x[8]))^(-(p[1])) * (1/exp(x[2])))*exp(x[11])*x[15]*(exp(x[9]))*exp(x[2])))
+
+end 
+ 
+function static_equations(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = Array{T,1}(undef,length(x)) 
+ 
+  f[1] = x[2] - ((1-(p[9]))*log((p[11])) + (p[9])*x[2] + (p[10])*0.0)
+  f[2] = x[1] - ((1-(p[12]))*log((p[14])) + (p[12])*x[1] + (p[13])*0.0)
+  f[3] = x[3] - ((1-(p[22]))*log((p[3])) + (p[22])*x[3] + (p[23])*0.0)
+  f[4] = x[4] - ((p[18])*0.0)
+  f[5] = 0 - (exp(x[12])- (exp(x[7])/exp(x[7]))*exp(x[2]))
+  f[6] = 0 - (x[9] - x[5] + x[5])
+  f[7] = 0 - (1 -  (p[2]) * (exp(x[8])/exp(x[8]))^(-(p[1])) * (1/exp(x[2])) * exp(x[6]) * (1/exp(x[11])))
+  f[8] = 0 - (exp(x[7]) - (1-x[13]) + x[17])
+  f[9] = 0 - (x[13]  -(((p[7])/(p[8])^(2))*(exp(-(p[8])*(exp(x[11])-(p[19])))+ (p[8])*(exp(x[11])-(p[19]))-1)))
+  f[10] = 0 - (x[15] - ((p[7])/(p[8]))*(1-exp(-(p[8])*(exp(x[11])-(p[19])))))
+  f[11] = 0 - (x[6] -((p[15])*x[6] + (1-(p[15]))*(log((((p[11])/(p[2]))*(p[19]))) + (p[16])*(x[11]-log((p[19]))) + (p[17])*(x[9] + x[2] - log((p[11]))))) - x[4])
+  f[12] = 0 - (exp(x[8]) + ((exp(x[1])-1)/exp(x[1]))*exp(x[5]) -(exp(x[5])*(1-x[13]) -exp(x[7])*exp(x[5])*x[14]))
+  f[13] = 0 - (x[14]  -(((p[5])/(p[6])^(2))*(exp(-(p[6])*(exp(x[12])*exp(x[11])-(p[11])* (p[19])))+(p[6])*(exp(x[12])*exp(x[11])-(p[11])*(p[19]))-1)))
+  f[14] = 0 - (x[16] - ((p[5])/(p[6]))*(1-exp(-(p[6])*(exp(x[12])*exp(x[11])- (p[11])*(p[19])))))
+  f[15] = 0 - (x[10] - x[12] - x[11])
+  f[16] = 0 - (((p[20])/(p[4]))*(1/exp(x[7]))*(exp(x[8])^((p[1])))*exp(x[5])^((1/(p[21]))) + (1-x[14])*(1-(1/(p[4])))-exp(x[11])*exp(x[12])*x[16] +(p[2])*(((exp(x[8])/exp(x[8]))^(-(p[1])) * (1/exp(x[2])))*exp(x[11])* (exp(x[12])^(2))*exp(x[9])*x[16]))
+  f[17] = 0 - ((1-x[13]) - exp(x[11])*x[15] - (x[17]/exp(x[3])) + (p[2])* (((exp(x[8])/exp(x[8]))^(-(p[1])) * (1/exp(x[2])))*exp(x[11])*x[15]*(exp(x[9]))*exp(x[2])))
+
+  return f 
+ 
+end 
+ 
+function dynamic_equations(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = Array{T,1}(undef,17) 
+ 
+  f[1] = x[19] - ((1-(p[9]))*log((p[11])) + (p[9])*x[2] + (p[10])*x[35])
+  f[2] = x[18] - ((1-(p[12]))*log((p[14])) + (p[12])*x[1] + (p[13])*x[36])
+  f[3] = x[20] - ((1-(p[22]))*log((p[3])) + (p[22])*x[3] + (p[23])*x[37])
+  f[4] = x[21] - ((p[18])*x[38])
+  f[5] = 0 - (exp(x[12])- (exp(x[24])/exp(x[7]))*exp(x[2]))
+  f[6] = 0 - (x[9] - x[22] + x[5])
+  f[7] = 0 - (1 -  (p[2]) * (exp(x[25])/exp(x[8]))^(-(p[1])) * (1/exp(x[19])) * exp(x[23]) * (1/exp(x[28])))
+  f[8] = 0 - (exp(x[24]) - (1-x[13]) + x[17])
+  f[9] = 0 - (x[13]  -(((p[7])/(p[8])^(2))*(exp(-(p[8])*(exp(x[11])-(p[19])))+ (p[8])*(exp(x[11])-(p[19]))-1)))
+  f[10] = 0 - (x[15] - ((p[7])/(p[8]))*(1-exp(-(p[8])*(exp(x[11])-(p[19])))))
+  f[11] = 0 - (x[23] -((p[15])*x[6] + (1-(p[15]))*(log((((p[11])/(p[2]))*(p[19]))) + (p[16])*(x[11]-log((p[19]))) + (p[17])*(x[9] + x[2] - log((p[11]))))) - x[4])
+  f[12] = 0 - (exp(x[8]) + ((exp(x[1])-1)/exp(x[1]))*exp(x[22]) -(exp(x[22])*(1-x[13]) -exp(x[24])*exp(x[22])*x[14]))
+  f[13] = 0 - (x[14]  -(((p[5])/(p[6])^(2))*(exp(-(p[6])*(exp(x[12])*exp(x[11])-(p[11])* (p[19])))+(p[6])*(exp(x[12])*exp(x[11])-(p[11])*(p[19]))-1)))
+  f[14] = 0 - (x[16] - ((p[5])/(p[6]))*(1-exp(-(p[6])*(exp(x[12])*exp(x[11])- (p[11])*(p[19])))))
+  f[15] = 0 - (x[10] - x[12] - x[11])
+  f[16] = 0 - (((p[20])/(p[4]))*(1/exp(x[24]))*(exp(x[8])^((p[1])))*exp(x[22])^((1/(p[21]))) + (1-x[14])*(1-(1/(p[4])))-exp(x[11])*exp(x[12])*x[16] +(p[2])*(((exp(x[25])/exp(x[8]))^(-(p[1])) * (1/exp(x[19])))*exp(x[28])* (exp(x[29])^(2))*exp(x[26])*x[33]))
+  f[17] = 0 - ((1-x[13]) - exp(x[11])*x[15] - (x[17]/exp(x[3])) + (p[2])* (((exp(x[25])/exp(x[8]))^(-(p[1])) * (1/exp(x[19])))*exp(x[28])*x[32]*(exp(x[26]))*exp(x[19])))
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_1(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = x[19] - ((1-(p[9]))*log((p[11])) + (p[9])*x[2] + (p[10])*x[35])
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_2(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = x[18] - ((1-(p[12]))*log((p[14])) + (p[12])*x[1] + (p[13])*x[36])
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_3(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = x[20] - ((1-(p[22]))*log((p[3])) + (p[22])*x[3] + (p[23])*x[37])
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_4(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = x[21] - ((p[18])*x[38])
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_5(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (exp(x[12])- (exp(x[24])/exp(x[7]))*exp(x[2]))
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_6(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (x[9] - x[22] + x[5])
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_7(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (1 -  (p[2]) * (exp(x[25])/exp(x[8]))^(-(p[1])) * (1/exp(x[19])) * exp(x[23]) * (1/exp(x[28])))
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_8(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (exp(x[24]) - (1-x[13]) + x[17])
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_9(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (x[13]  -(((p[7])/(p[8])^(2))*(exp(-(p[8])*(exp(x[11])-(p[19])))+ (p[8])*(exp(x[11])-(p[19]))-1)))
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_10(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (x[15] - ((p[7])/(p[8]))*(1-exp(-(p[8])*(exp(x[11])-(p[19])))))
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_11(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (x[23] -((p[15])*x[6] + (1-(p[15]))*(log((((p[11])/(p[2]))*(p[19]))) + (p[16])*(x[11]-log((p[19]))) + (p[17])*(x[9] + x[2] - log((p[11]))))) - x[4])
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_12(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (exp(x[8]) + ((exp(x[1])-1)/exp(x[1]))*exp(x[22]) -(exp(x[22])*(1-x[13]) -exp(x[24])*exp(x[22])*x[14]))
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_13(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (x[14]  -(((p[5])/(p[6])^(2))*(exp(-(p[6])*(exp(x[12])*exp(x[11])-(p[11])* (p[19])))+(p[6])*(exp(x[12])*exp(x[11])-(p[11])*(p[19]))-1)))
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_14(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (x[16] - ((p[5])/(p[6]))*(1-exp(-(p[6])*(exp(x[12])*exp(x[11])- (p[11])*(p[19])))))
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_15(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (x[10] - x[12] - x[11])
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_16(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - (((p[20])/(p[4]))*(1/exp(x[24]))*(exp(x[8])^((p[1])))*exp(x[22])^((1/(p[21]))) + (1-x[14])*(1-(1/(p[4])))-exp(x[11])*exp(x[12])*x[16] +(p[2])*(((exp(x[25])/exp(x[8]))^(-(p[1])) * (1/exp(x[19])))*exp(x[28])* (exp(x[29])^(2))*exp(x[26])*x[33]))
+
+  return f 
+ 
+end 
+
+function dynamic_eqn_17(x::Array{T,1},p::Array{T1,1}) where {T<:Number,T1<:Real} 
+ 
+  f = 0 - ((1-x[13]) - exp(x[11])*x[15] - (x[17]/exp(x[3])) + (p[2])* (((exp(x[25])/exp(x[8]))^(-(p[1])) * (1/exp(x[19])))*exp(x[28])*x[32]*(exp(x[26]))*exp(x[19])))
+
+  return f 
+ 
+end 
+
+individual_equations = Array{Function}(undef,17) 
+individual_equations[1] = dynamic_eqn_1
+individual_equations[2] = dynamic_eqn_2
+individual_equations[3] = dynamic_eqn_3
+individual_equations[4] = dynamic_eqn_4
+individual_equations[5] = dynamic_eqn_5
+individual_equations[6] = dynamic_eqn_6
+individual_equations[7] = dynamic_eqn_7
+individual_equations[8] = dynamic_eqn_8
+individual_equations[9] = dynamic_eqn_9
+individual_equations[10] = dynamic_eqn_10
+individual_equations[11] = dynamic_eqn_11
+individual_equations[12] = dynamic_eqn_12
+individual_equations[13] = dynamic_eqn_13
+individual_equations[14] = dynamic_eqn_14
+individual_equations[15] = dynamic_eqn_15
+individual_equations[16] = dynamic_eqn_16
+individual_equations[17] = dynamic_eqn_17
+
+function closure_chebyshev_equations(state,scaled_weights,order,domain,p) 
+ 
+  function chebyshev_equations(f::Array{T,1},x::Array{T,1}) where {T<:Number} 
+ 
+    approx1 = chebyshev_evaluate(scaled_weights[1],x[10+1:end],order,domain)
+    approx2 = chebyshev_evaluate(scaled_weights[2],x[10+1:end],order,domain)
+    approx4 = chebyshev_evaluate(scaled_weights[3],x[10+1:end],order,domain)
+    approx5 = chebyshev_evaluate(scaled_weights[4],x[10+1:end],order,domain)
+    approx8 = chebyshev_evaluate(scaled_weights[5],x[10+1:end],order,domain)
+    approx9 = chebyshev_evaluate(scaled_weights[6],x[10+1:end],order,domain)
+
+    #f = Array{T,1}(undef,17) 
+ 
+    f[1] = x[12] - ((1-(p[9]))*log((p[11])) + (p[9])*state[2] + (p[10])*0.0)
+    f[2] = x[11] - ((1-(p[12]))*log((p[14])) + (p[12])*state[1] + (p[13])*0.0)
+    f[3] = x[13] - ((1-(p[22]))*log((p[3])) + (p[22])*state[3] + (p[23])*0.0)
+    f[4] = x[14] - ((p[18])*0.0)
+    f[5] = 0 - (exp(x[5])- (exp(x[17])/exp(state[7]))*exp(state[2]))
+    f[6] = 0 - (x[2] - x[15] + state[5])
+    f[7] = 0 - (1 -  (p[2]) * (exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])) * exp(x[16]) * (1/exp(approx4)))
+    f[8] = 0 - (exp(x[17]) - (1-x[6]) + x[10])
+    f[9] = 0 - (x[6]  -(((p[7])/(p[8])^(2))*(exp(-(p[8])*(exp(x[4])-(p[19])))+ (p[8])*(exp(x[4])-(p[19]))-1)))
+    f[10] = 0 - (x[8] - ((p[7])/(p[8]))*(1-exp(-(p[8])*(exp(x[4])-(p[19])))))
+    f[11] = 0 - (x[16] -((p[15])*state[6] + (1-(p[15]))*(log((((p[11])/(p[2]))*(p[19]))) + (p[16])*(x[4]-log((p[19]))) + (p[17])*(x[2] + state[2] - log((p[11]))))) - state[4])
+    f[12] = 0 - (exp(x[1]) + ((exp(state[1])-1)/exp(state[1]))*exp(x[15]) -(exp(x[15])*(1-x[6]) -exp(x[17])*exp(x[15])*x[7]))
+    f[13] = 0 - (x[7]  -(((p[5])/(p[6])^(2))*(exp(-(p[6])*(exp(x[5])*exp(x[4])-(p[11])* (p[19])))+(p[6])*(exp(x[5])*exp(x[4])-(p[11])*(p[19]))-1)))
+    f[14] = 0 - (x[9] - ((p[5])/(p[6]))*(1-exp(-(p[6])*(exp(x[5])*exp(x[4])- (p[11])*(p[19])))))
+    f[15] = 0 - (x[3] - x[5] - x[4])
+    f[16] = 0 - (((p[20])/(p[4]))*(1/exp(x[17]))*(exp(x[1])^((p[1])))*exp(x[15])^((1/(p[21]))) + (1-x[7])*(1-(1/(p[4])))-exp(x[4])*exp(x[5])*x[9] +(p[2])*(((exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])))*exp(approx4)* (exp(approx5)^(2))*exp(approx2)*approx9))
+    f[17] = 0 - ((1-x[6]) - exp(x[4])*x[8] - (x[10]/exp(state[3])) + (p[2])* (((exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])))*exp(approx4)*approx8*(exp(approx2))*exp(x[12])))
+
+    #return f 
+ 
+  end 
+ 
+  return chebyshev_equations 
+ 
+end 
+
+function closure_smolyak_equations(state,scaled_weights,order,domain,p) 
+ 
+  function smolyak_equations(f::Array{T,1},x::Array{T,1}) where {T<:Number} 
+ 
+    poly = smolyak_polynomial(x[10+1:end],order,domain) 
+    approx1 = smolyak_evaluate(scaled_weights[1],poly)
+    approx2 = smolyak_evaluate(scaled_weights[2],poly)
+    approx4 = smolyak_evaluate(scaled_weights[3],poly)
+    approx5 = smolyak_evaluate(scaled_weights[4],poly)
+    approx8 = smolyak_evaluate(scaled_weights[5],poly)
+    approx9 = smolyak_evaluate(scaled_weights[6],poly)
+
+    #f = Array{T,1}(undef,17) 
+ 
+    f[1] = x[12] - ((1-(p[9]))*log((p[11])) + (p[9])*state[2] + (p[10])*0.0)
+    f[2] = x[11] - ((1-(p[12]))*log((p[14])) + (p[12])*state[1] + (p[13])*0.0)
+    f[3] = x[13] - ((1-(p[22]))*log((p[3])) + (p[22])*state[3] + (p[23])*0.0)
+    f[4] = x[14] - ((p[18])*0.0)
+    f[5] = 0 - (exp(x[5])- (exp(x[17])/exp(state[7]))*exp(state[2]))
+    f[6] = 0 - (x[2] - x[15] + state[5])
+    f[7] = 0 - (1 -  (p[2]) * (exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])) * exp(x[16]) * (1/exp(approx4)))
+    f[8] = 0 - (exp(x[17]) - (1-x[6]) + x[10])
+    f[9] = 0 - (x[6]  -(((p[7])/(p[8])^(2))*(exp(-(p[8])*(exp(x[4])-(p[19])))+ (p[8])*(exp(x[4])-(p[19]))-1)))
+    f[10] = 0 - (x[8] - ((p[7])/(p[8]))*(1-exp(-(p[8])*(exp(x[4])-(p[19])))))
+    f[11] = 0 - (x[16] -((p[15])*state[6] + (1-(p[15]))*(log((((p[11])/(p[2]))*(p[19]))) + (p[16])*(x[4]-log((p[19]))) + (p[17])*(x[2] + state[2] - log((p[11]))))) - state[4])
+    f[12] = 0 - (exp(x[1]) + ((exp(state[1])-1)/exp(state[1]))*exp(x[15]) -(exp(x[15])*(1-x[6]) -exp(x[17])*exp(x[15])*x[7]))
+    f[13] = 0 - (x[7]  -(((p[5])/(p[6])^(2))*(exp(-(p[6])*(exp(x[5])*exp(x[4])-(p[11])* (p[19])))+(p[6])*(exp(x[5])*exp(x[4])-(p[11])*(p[19]))-1)))
+    f[14] = 0 - (x[9] - ((p[5])/(p[6]))*(1-exp(-(p[6])*(exp(x[5])*exp(x[4])- (p[11])*(p[19])))))
+    f[15] = 0 - (x[3] - x[5] - x[4])
+    f[16] = 0 - (((p[20])/(p[4]))*(1/exp(x[17]))*(exp(x[1])^((p[1])))*exp(x[15])^((1/(p[21]))) + (1-x[7])*(1-(1/(p[4])))-exp(x[4])*exp(x[5])*x[9] +(p[2])*(((exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])))*exp(approx4)* (exp(approx5)^(2))*exp(approx2)*approx9))
+    f[17] = 0 - ((1-x[6]) - exp(x[4])*x[8] - (x[10]/exp(state[3])) + (p[2])* (((exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])))*exp(approx4)*approx8*(exp(approx2))*exp(x[12])))
+
+    #return f 
+ 
+  end 
+ 
+  return smolyak_equations 
+ 
+end 
+
+function closure_hcross_equations(state,scaled_weights,order,domain,p) 
+ 
+  function hcross_equations(f::Array{T,1},x::Array{T,1}) where {T<:Number} 
+ 
+    poly = hyperbolic_cross_polynomial(x[10+1:end],order,domain) 
+    approx1 = hyperbolic_cross_evaluate(scaled_weights[1],poly)
+    approx2 = hyperbolic_cross_evaluate(scaled_weights[2],poly)
+    approx4 = hyperbolic_cross_evaluate(scaled_weights[3],poly)
+    approx5 = hyperbolic_cross_evaluate(scaled_weights[4],poly)
+    approx8 = hyperbolic_cross_evaluate(scaled_weights[5],poly)
+    approx9 = hyperbolic_cross_evaluate(scaled_weights[6],poly)
+
+    #f = Array{T,1}(undef,17) 
+ 
+    f[1] = x[12] - ((1-(p[9]))*log((p[11])) + (p[9])*state[2] + (p[10])*0.0)
+    f[2] = x[11] - ((1-(p[12]))*log((p[14])) + (p[12])*state[1] + (p[13])*0.0)
+    f[3] = x[13] - ((1-(p[22]))*log((p[3])) + (p[22])*state[3] + (p[23])*0.0)
+    f[4] = x[14] - ((p[18])*0.0)
+    f[5] = 0 - (exp(x[5])- (exp(x[17])/exp(state[7]))*exp(state[2]))
+    f[6] = 0 - (x[2] - x[15] + state[5])
+    f[7] = 0 - (1 -  (p[2]) * (exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])) * exp(x[16]) * (1/exp(approx4)))
+    f[8] = 0 - (exp(x[17]) - (1-x[6]) + x[10])
+    f[9] = 0 - (x[6]  -(((p[7])/(p[8])^(2))*(exp(-(p[8])*(exp(x[4])-(p[19])))+ (p[8])*(exp(x[4])-(p[19]))-1)))
+    f[10] = 0 - (x[8] - ((p[7])/(p[8]))*(1-exp(-(p[8])*(exp(x[4])-(p[19])))))
+    f[11] = 0 - (x[16] -((p[15])*state[6] + (1-(p[15]))*(log((((p[11])/(p[2]))*(p[19]))) + (p[16])*(x[4]-log((p[19]))) + (p[17])*(x[2] + state[2] - log((p[11]))))) - state[4])
+    f[12] = 0 - (exp(x[1]) + ((exp(state[1])-1)/exp(state[1]))*exp(x[15]) -(exp(x[15])*(1-x[6]) -exp(x[17])*exp(x[15])*x[7]))
+    f[13] = 0 - (x[7]  -(((p[5])/(p[6])^(2))*(exp(-(p[6])*(exp(x[5])*exp(x[4])-(p[11])* (p[19])))+(p[6])*(exp(x[5])*exp(x[4])-(p[11])*(p[19]))-1)))
+    f[14] = 0 - (x[9] - ((p[5])/(p[6]))*(1-exp(-(p[6])*(exp(x[5])*exp(x[4])- (p[11])*(p[19])))))
+    f[15] = 0 - (x[3] - x[5] - x[4])
+    f[16] = 0 - (((p[20])/(p[4]))*(1/exp(x[17]))*(exp(x[1])^((p[1])))*exp(x[15])^((1/(p[21]))) + (1-x[7])*(1-(1/(p[4])))-exp(x[4])*exp(x[5])*x[9] +(p[2])*(((exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])))*exp(approx4)* (exp(approx5)^(2))*exp(approx2)*approx9))
+    f[17] = 0 - ((1-x[6]) - exp(x[4])*x[8] - (x[10]/exp(state[3])) + (p[2])* (((exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])))*exp(approx4)*approx8*(exp(approx2))*exp(x[12])))
+
+    #return f 
+ 
+  end 
+ 
+  return hcross_equations 
+ 
+end 
+
+function closure_piecewise_equations(variables,grid,state,integrals,p) 
+ 
+  function piecewise_equations(f::Array{T,1},x::Array{T,1}) where {T<:Number} 
+ 
+    approx1 = piecewise_linear_evaluate(variables[1],grid,x[10+1:end],integrals)
+    approx2 = piecewise_linear_evaluate(variables[2],grid,x[10+1:end],integrals)
+    approx4 = piecewise_linear_evaluate(variables[4],grid,x[10+1:end],integrals)
+    approx5 = piecewise_linear_evaluate(variables[5],grid,x[10+1:end],integrals)
+    approx8 = piecewise_linear_evaluate(variables[8],grid,x[10+1:end],integrals)
+    approx9 = piecewise_linear_evaluate(variables[9],grid,x[10+1:end],integrals)
+
+    #f = Array{T,1}(undef,17) 
+ 
+    f[1] = x[12] - ((1-(p[9]))*log((p[11])) + (p[9])*state[2] + (p[10])*0.0)
+    f[2] = x[11] - ((1-(p[12]))*log((p[14])) + (p[12])*state[1] + (p[13])*0.0)
+    f[3] = x[13] - ((1-(p[22]))*log((p[3])) + (p[22])*state[3] + (p[23])*0.0)
+    f[4] = x[14] - ((p[18])*0.0)
+    f[5] = 0 - (exp(x[5])- (exp(x[17])/exp(state[7]))*exp(state[2]))
+    f[6] = 0 - (x[2] - x[15] + state[5])
+    f[7] = 0 - (1 -  (p[2]) * (exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])) * exp(x[16]) * (1/exp(approx4)))
+    f[8] = 0 - (exp(x[17]) - (1-x[6]) + x[10])
+    f[9] = 0 - (x[6]  -(((p[7])/(p[8])^(2))*(exp(-(p[8])*(exp(x[4])-(p[19])))+ (p[8])*(exp(x[4])-(p[19]))-1)))
+    f[10] = 0 - (x[8] - ((p[7])/(p[8]))*(1-exp(-(p[8])*(exp(x[4])-(p[19])))))
+    f[11] = 0 - (x[16] -((p[15])*state[6] + (1-(p[15]))*(log((((p[11])/(p[2]))*(p[19]))) + (p[16])*(x[4]-log((p[19]))) + (p[17])*(x[2] + state[2] - log((p[11]))))) - state[4])
+    f[12] = 0 - (exp(x[1]) + ((exp(state[1])-1)/exp(state[1]))*exp(x[15]) -(exp(x[15])*(1-x[6]) -exp(x[17])*exp(x[15])*x[7]))
+    f[13] = 0 - (x[7]  -(((p[5])/(p[6])^(2))*(exp(-(p[6])*(exp(x[5])*exp(x[4])-(p[11])* (p[19])))+(p[6])*(exp(x[5])*exp(x[4])-(p[11])*(p[19]))-1)))
+    f[14] = 0 - (x[9] - ((p[5])/(p[6]))*(1-exp(-(p[6])*(exp(x[5])*exp(x[4])- (p[11])*(p[19])))))
+    f[15] = 0 - (x[3] - x[5] - x[4])
+    f[16] = 0 - (((p[20])/(p[4]))*(1/exp(x[17]))*(exp(x[1])^((p[1])))*exp(x[15])^((1/(p[21]))) + (1-x[7])*(1-(1/(p[4])))-exp(x[4])*exp(x[5])*x[9] +(p[2])*(((exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])))*exp(approx4)* (exp(approx5)^(2))*exp(approx2)*approx9))
+    f[17] = 0 - ((1-x[6]) - exp(x[4])*x[8] - (x[10]/exp(state[3])) + (p[2])* (((exp(approx1)/exp(x[1]))^(-(p[1])) * (1/exp(x[12])))*exp(approx4)*approx8*(exp(approx2))*exp(x[12])))
+
+    #return f 
+ 
+  end 
+ 
+  return piecewise_equations 
+ 
+end 
+
+unassigned_parameters = ["τ", "β", "λpSS", "λwSS", "φw", "ψw", "φp", "ψp", "ρa", "σa", "γ", "ρg", "σg", "gStar", "ρr", "ψ1", "ψ2", "σr", "πStar", "χh", "ν", "ρp", "σp"] 
+
+solvers = "Any" 

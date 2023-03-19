@@ -1,0 +1,42 @@
+# Our model written in the form required by package "SolveDSGE"
+
+
+states:
+w, y, R, g, a, lambda_p, e
+end
+
+
+jumps:
+c, dy, dwnom, infl, dw, Phi_p, Phi_w, Phi_p_der, Phi_w_der, mu
+end
+
+
+shocks:
+εg, εa, εl, εe
+end
+
+
+parameters:
+τ, β, λpSS, λwSS, φw, ψw, φp, ψp, ρa, σa, γ, ρg, σg, gStar, ρr, ψ1, ψ2, σr, πStar, χh, ν, ρp, σp
+end
+
+
+equations:
+0 = 1 -  β * (exp(c(+1))/exp(c))^(-τ) * (1/exp(a(+1))) * exp(R(+1)) * (1/exp(infl(+1)))
+0 = exp(dw)- (exp(w(+1))/exp(w))*exp(a)
+0 = exp(c) + ((exp(g)-1)/exp(g))*exp(y(+1)) -(exp(y(+1))*(1-Phi_p) -exp(w(+1))*exp(y(+1))*Phi_w)
+0 = (χh/λwSS)*(1/exp(w(+1)))*(exp(c)^(τ))*exp(y(+1))^((1/ν)) + (1-Phi_w)*(1-(1/λwSS))-exp(infl)*exp(dw)*Phi_w_der +β*(((exp(c(+1))/exp(c))^(-τ) * (1/exp(a(+1))))*exp(infl(+1))* (exp(dw(+1))^(2))*exp(dy(+1))*Phi_w_der(+1))
+0 = (1-Phi_p) - exp(infl)*Phi_p_der - (mu/exp(lambda_p)) + β* (((exp(c(+1))/exp(c))^(-τ) * (1/exp(a(+1))))*exp(infl(+1))*Phi_p_der(+1)*(exp(dy(+1)))*exp(a(+1)))
+0 = exp(w(+1)) - (1-Phi_p) + mu
+0 = Phi_w  -((φw/ψw^(2))*(exp(-ψw*(exp(dw)*exp(infl)-γ* πStar))+ψw*(exp(dw)*exp(infl)-γ*πStar)-1))
+0 = Phi_p  -((φp/ψp^(2))*(exp(-ψp*(exp(infl)-πStar))+ ψp*(exp(infl)-πStar)-1))
+0 = Phi_w_der - (φw/ψw)*(1-exp(-ψw*(exp(dw)*exp(infl)- γ*πStar)))
+0 = Phi_p_der - (φp/ψp)*(1-exp(-ψp*(exp(infl)-πStar)))
+0 = R(+1) -(ρr*R + (1-ρr)*(log(((γ/β)*πStar)) + ψ1*(infl-log(πStar)) + ψ2*(dy + a - log(γ)))) - e
+a(+1) = (1-ρa)*log(γ) + ρa*a + σa*εa
+g(+1) = (1-ρg)*log(gStar) + ρg*g + σg*εg
+lambda_p(+1) = (1-ρp)*log(λpSS) + ρp*lambda_p + σp*εl
+0 = dy - y(+1) + y
+e(+1) = σr*εe
+0 = dwnom - dw - infl
+end
