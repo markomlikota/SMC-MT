@@ -1,14 +1,14 @@
 # Mlikota & Schorfheide : Sequential Monte Carlo With Model Tempering
-# Nov 2021, mlikota@sas.upenn.edu
+# March 2023, mlikota@sas.upenn.edu
 
 # -------------------------------------------------------------------------------
 
 
-Documentation for software folder for VAR illustration in
+Documentation: software folder for VAR illustration in
 Mlikota & Schorfheide: "Sequential Monte Carlo With Model Tempering".
 
-See "HowToSetupSMC-EstimationSoftware.txt" in "Documents/Notes"
-for general notes on how best to set up SMC(-MT) estimation software.
+Section "How to reproduce results (plots)" below contains instructions on how to replicate our results. 
+The other sections are only meant to help understand the code/software-setup, but are no required for result-replication. 
 
 
 
@@ -59,7 +59,7 @@ main_VARSV_OneRun.jl :
 
     - executes estimation:
       - under LT: takes vParLabs, fLL, fLLtilde, fPriorDraw, fPriorLogEval, fIsDrawValid
-        based on Model1spec and Prior1spec
+        from Model1spec and Prior1spec
       - under MT: first defines all of the above with suffixes M1 and M0 based on
         (Model1spec and Prior1spec) and (Model0spec and Prior0spec) respectively.
         Then uses these to define the above without suffixes based on how
@@ -82,7 +82,7 @@ main_VARSV_RepeatedRuns_v2.jl :
   an improved version of the above, where the models to be estimated can be specified explicitly.
   In the above, the run folders are named "runX", and here there is the option to choose a name.
   Thus, in the runs of the actual model SV under different DGPs and SMCspecs, we have the folders "runX".
-  For the runs of the models SVxX with artificially increased runtimes, I chose the name "xrunX".
+  For the runs of the models SVxX with artificially increased runtimes, we chose the name "xrunX".
 
 
 main_VARSV_outputAnalysisOneSpec.jl :
@@ -104,7 +104,7 @@ main_VARSV_outputAnalysisMultipleSpecs.jl :
 
 main_VARSV_LLevaltimes.jl :
 
-  compares LL evaluation times under models L1 and L2
+  compares LL evaluation times under different models
 
 
 main_testSMC.jl :

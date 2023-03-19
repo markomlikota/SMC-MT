@@ -1,14 +1,15 @@
 # Mlikota & Schorfheide : Sequential Monte Carlo With Model Tempering
-# November 2021, mlikota@sas.upenn.edu
+# March 2023, mlikota@sas.upenn.edu
 
 # -------------------------------------------------------------------------------
 
 
-Documentation for software folder for "SimpleExample" illustration in
+Documentation: software folder for "SimpleExample" illustration in
 Mlikota & Schorfheide: "Sequential Monte Carlo With Model Tempering".
 
-See "HowToSetupSMC-EstimationSoftware.txt" in "Documents/Notes"
-for general notes on how best to set up SMC(-MT) estimation software.
+
+Section "How to reproduce results (plots)" below contains instructions on how to replicate our results. 
+The other section is only meant to help understand the code/software-setup, but is not required for result-replication. 
 
 
 
@@ -55,7 +56,7 @@ Same as the above, just for the bivariate case.
 
 Note:
 
-  - I used Targetspec and Propspec starting with "A" to indicate univariate dist. and "B" to indicate bivariate dist.
+  - We used Targetspec and Propspec starting with "A" to indicate univariate dist. and "B" to indicate bivariate dist.
 
   - The functionality to create new folder "SetOfProposalsX+1" (i.e. append list) inside the output folder
     created by "main_MultipleProposalsAndRuns.jl" (e.g. "tA1_smc1") was created with the following intention.

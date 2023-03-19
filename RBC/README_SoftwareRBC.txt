@@ -1,5 +1,5 @@
 # Mlikota & Schorfheide : Sequential Monte Carlo With Model Tempering
-# Jan 2022, mlikota@sas.upenn.edu
+# March 2023, mlikota@sas.upenn.edu
 
 # -------------------------------------------------------------------------------
 
@@ -7,8 +7,8 @@
 Documentation for software folder for DSGE (RBC) illustration in
 Mlikota & Schorfheide: "Sequential Monte Carlo With Model Tempering".
 
-See "HowToSetupSMC-EstimationSoftware.txt" in "Documents/Notes"
-for general notes on how best to set up SMC(-MT) estimation software.
+Section "How to reproduce results (plots)" below contains instructions on how to replicate our results. 
+The other sections are only meant to help understand the code/software-setup, but are no required for result-replication. 
 
 
 
@@ -29,7 +29,7 @@ In all of the following and in the codes in this folder (unless otherwise specif
         "Mi" = "L3" refers to third order linearized model,
         "Mi" = "VFI" refers to globally solved model (using value function iteration),
 
-        "L11", "L21", "L31", "VFI1" are corresponding prior specifications where we estimate all parameters except ν
+        "L11", "L21", "L31", "VFI1" are corresponding prior specifications where we estimate all parameters except ν (nu)
         "L12", "L22", "L32", "VFI2" estimate ν as well
 
 - "estimation specification" refers to the way estimation is conducted
@@ -42,7 +42,7 @@ In all of the following and in the codes in this folder (unless otherwise specif
 # -------------------------------------------------------------------------------
 
 
-Many of the following scripts have several versions for different models, e.g. mL1, mL2, mL3, mVFI.
+Many of the following scripts have analogous versions for different models, e.g. mL1, mL2, mL3, mVFI.
 
 
 main_RBC_simulateData_mL1.jl :
@@ -84,9 +84,7 @@ main_RBC_outputAnalysisOneSpec.jl :
 
 main_RBC_outputAnalysisMultipleSpecs.jl :
 
-  for now, it plots only data under all (three) DGPs
-
-  ... in future, it should also create plots that compare output under several DGP &/or SMC specs &/or estimation specs (LT/MT)
+  plots data under all (three) DGPs
 
 
 main_RBC_calibrateBSPF_mL2.jl :
