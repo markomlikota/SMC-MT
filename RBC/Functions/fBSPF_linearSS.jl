@@ -25,8 +25,6 @@ function fMyMNDraw(vμ,mΣ)
 end
 
 
-# mData,Mbspf,Ψ0,Ψ1,Φ1,Φε,s0,P00,Σ_u = mData,Mbspf,Ψ0,Ψ1,Φ1,Φε,1,1,Ψu*Ψu'
-
 function fBSPF_linearSS(mData,Mbspf,Ψ0,Ψ1,Φ1,Φε,P00=1,Σ_u=0)
 
     # Bootstrap Particle Filter for linear state space of the form

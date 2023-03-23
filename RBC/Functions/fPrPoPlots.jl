@@ -75,7 +75,7 @@ function fPlotDistEvol(pInd,yLab,aParticles,mWeights,nLines,boundsType)
     k           = kde(aParticles[:,pInd,1], weights = Weights(mWeights[:,end]))
     st, en      = fFindPlotBounds(boundsType,k.x)
 
-    ppp         = plot(vec(ones(length(k.x[st:en]),1)),k.x[st:en], k.density[st:en],camera=(60,30),line=(:black,transpStart,2,:line),label="",xlabel="n",ylabel=yLab)
+    ppp         = plot(vec(ones(length(k.x[st:en]),1)),k.x[st:en], k.density[st:en],camera=(60,30),line=(:black,transpStart,2,:line),label="",xlabel="n",ylabel=yLab, xtickfont=font(16),ytickfont=font(16),ztickfont=font(16),guidefont=font(16),legendfontsize=16)
     xflip!(true)
 
     for nn in 2:nLines
@@ -124,7 +124,7 @@ function fPlotDistEvol2D(pInd,yLab,aParticles,mWeights,nLines,boundsType,vLineLa
 
     vx          = k.x[st:en] #range(-0.2,1.0,length=2048) #
     vy          = k.density[st:en] #range(0.0,2.0,length=2048) #
-    ppp         = plot(vx,vy,line=(vCols[0.4+0.5*1/nLines],transpStart,vThickness[1],:line), label=vLineLabs[1],xlabel=yLab,xlims=(k.x[st],k.x[en]),background_color_legend = nothing)
+    ppp         = plot(vx,vy,line=(vCols[0.4+0.5*1/nLines],transpStart,vThickness[1],:line), label=vLineLabs[1],xlabel=yLab,xlims=(k.x[st],k.x[en]),background_color_legend = nothing, xtickfont=font(16),ytickfont=font(16),ztickfont=font(16),guidefont=font(16),legendfontsize=16)
     # xflip!(true)
 
 

@@ -68,8 +68,8 @@ using StatsFuns
 # -------------------------------------------------------------------------------
 
 
-# @everywhere cd()
-# @everywhere sMyPath            = string(pwd(),"/Dropbox/FileExchange_FS_MM/SMC-MT/SoftwareVAR/")
+# cd()
+# sMyPath            = string(pwd(),"/Dropbox/FileExchange_FS_MM/SMC-MT/SoftwareVAR/")
 @everywhere sMyPath            = pwd() * "/"
 
 
@@ -158,11 +158,7 @@ end
 # Load SMC tuning parameters:
 
 include(sMyPath * "SpecFiles/" * string("script_SMCspec",SMCspec,".jl") )
-# include(sMyPath * "SpecFiles/script_DGPspec1.jl")
-#
-# ϑ = fVARObjectsToϑ_SV(Φ0, Σ0, vρ0, vξ0)
-#
-# fLL_SV(ϑ)
+
 
 # -- Estimation ----------------------------------------------------------------
 
@@ -180,13 +176,13 @@ if sTemperingType == "LT"
             fLLhelp     = eval(Meta.parse(string("fLL_",Model1spec)))
             return fLLhelp(θ)
         end
-        # fLL             = eval(Meta.parse(string("fLL_",Model1spec)))
+
         fLLtilde(θ)     = 0
         function fPriorDraw()
             fPDhelp     = eval(Meta.parse(string("fPriorDraw_",Model1spec)))
             return fPDhelp()
         end
-        # fPriorDraw      = eval(Meta.parse(string("fPriorDraw_",Model1spec)))
+
         function fIsDrawValid(θ)
             fIDVhelp         =  eval(Meta.parse(string("fIsDrawValid_",Model1spec)))
             return minimum(fIDVhelp(θ))
@@ -226,10 +222,6 @@ elseif sTemperingType == "MT"
         # First "translate" model functions to M1 and M0:
 
         vParLabs_M1        = eval(Meta.parse(string("vParLabs_",Model1spec)))
-        # fLL_M1             = eval(Meta.parse(string("fLL_",Model1spec)))
-        # fPriorDraw_M1      = eval(Meta.parse(string("fPriorDraw_",Model1spec)))
-        # fIsDrawValid_M1    = eval(Meta.parse(string("fIsDrawValid_",Model1spec)))
-        # fPriorLogEval_M1   = eval(Meta.parse(string("fPriorLogEval_",Model1spec)))
 
         function fLL_M1(ϑM1)
             fLLM1help     = eval(Meta.parse(string("fLL_",Model1spec)))
@@ -250,10 +242,7 @@ elseif sTemperingType == "MT"
 
 
         vParLabs_M0        = eval(Meta.parse(string("vParLabs_",Model0spec)))
-        # fLL_M0             = eval(Meta.parse(string("fLL_",Model0spec)))
-        # fPriorDraw_M0      = eval(Meta.parse(string("fPriorDraw_",Model0spec)))
-        # fIsDrawValid_M0    = eval(Meta.parse(string("fIsDrawValid_",Model0spec)))
-        # fPriorLogEval_M0   = eval(Meta.parse(string("fPriorLogEval_",Model0spec)))
+
         function fLL_M0(ϑM0)
             fLLM0help     = eval(Meta.parse(string("fLL_",Model0spec)))
             return fLLM0help(ϑM0)

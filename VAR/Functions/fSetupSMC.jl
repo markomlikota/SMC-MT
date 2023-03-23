@@ -50,25 +50,6 @@
 #   - For more details on software structuring for SMC estimation, see "HowToSetupSMC-EstimationSoftware.txt"
 
 
-
-# -------------------------------------------------------------------------------
-
-# Improvment suggestions:
-
-# - adapt the functions that pertain to blocking based on the more efficient code written for VAR-ZLB:
-    # thetax                  = zeros(n_theta)
-    #
-    # mRandomDraws            = Random.rand(MvNormal(zeros(nVary),Matrix(1.0I, nVary, nVary)))
-    #
-    # thetax[vParamVaries]    = thetaMut[vParamVaries] + cSMC* mPropVar_sqrt* mRandomDraws
-    #
-    # thetax[vParamVaries.==0] = thetaMut[vParamVaries.==0]
-
-# - have SMC return struct, not list of objects...
-
-# - have option to write files in every iteration, so that one can continue where it stopped (run it in several "chunks")
-
-
 # -------------------------------------------------------------------------------
 
 
@@ -125,8 +106,6 @@
 
     end
 
-    # θ0,vllθ0,pθ0,c,Σ,ϕn = mDraws[ind-1,:],mLogLiks[ind-1,:],vPriors[ind-1],c,Σ,ϕn
-    # Random.seed!((432 + 100*iiPhi + 432*ii)*setSeed)
     function fRWMH1(θ0,vllθ0,pθ0,c,Σ,ϕn)
 
         # Propagates particle θ0 through one iteration of RWMH
@@ -186,9 +165,6 @@
 
     end
 
-
-    # θ0,vllθ0,pθ0,c,Σ,ϕn,nDraws = mProposalParticles[ii,:],mLogLiks[ii,:],vPriors[ii],c,Σ,ϕn,Nmh
-    # Random.seed!((432 + 100*iiPhi + 432*ii)*setSeed)
     function fRWMH(θ0,vllθ0,pθ0,c,Σ,ϕn,nDraws)
 
         # Propagates θ0 through nDraws iterations of RWMH. See fRWMH1().

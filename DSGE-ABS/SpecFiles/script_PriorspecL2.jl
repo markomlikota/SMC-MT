@@ -76,22 +76,6 @@ function fPriorDraw_L2()
 
 end
 
-# dist = InverseGamma(fMyInvGamma(0.2,2.0)...)
-# x = 0.0:0.0001:0.02
-# plot(x, pdf.(dist, x*100), label="1")
-#
-# dist2 = InverseGamma(fMyInvGamma(1.0 ,0.8)...)
-# plot!(x, pdf.(dist2, x*100), label="2")
-#
-# dist3 = InverseGamma(fMyInvGamma(2.0 ,0.8)...)
-# plot!(x, pdf.(dist3, x*100), label="3")
-#
-# dist4 = InverseGamma(fMyInvGamma(4.0 ,0.8)...)
-# plot!(x, pdf.(dist4, x*100), label="4")
-#
-# dist5 = InverseGamma(fMyInvGamma(4.0 ,0.9)...)
-# plot!(x, pdf.(dist5, x*100), label="5")
-
 
 function fPriorLogEval_L2(θ)
 

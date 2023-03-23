@@ -71,11 +71,7 @@ function fPosteriorMDDunderVARMNIW(Y,X,μ_pr,P_pr,v_pr,S_pr,ϕ_Nϕ=1.0)
       S_po = S_pr  + μ_pr' * P_pr * μ_pr  + ϕ_Nϕ * Y'*Y  - μ_po' * P_po * μ_po
       v_po = v_pr  + ϕ_Nϕ* T
 
-
-      # logMDD = -T*ϕ_Nϕ*n/2 * log(π) + k/2* (logdet(inv(P_po))-logdet(inv(P_pr)) ) - v_po/2 * logdet(S_po) + v_pr/2 * logdet(S_pr) +  logmvgamma(n,v_po/2) - logmvgamma(n,v_pr/2)
-      # logMDD = -T*ϕ_Nϕ*n/2 * log(π) + k/2* (-logdet(P_po) + logdet(P_pr) ) - v_po/2 * logdet(S_po) + v_pr/2 * logdet(S_pr) +  logmvgamma(n,v_po/2) - logmvgamma(n,v_pr/2)
       logMDD = -T*ϕ_Nϕ*n/2 * log(π) + n/2* (-logdet(P_po) + logdet(P_pr) ) - v_po/2 * logdet(S_po) + v_pr/2 * logdet(S_pr) +  logmvgamma(n,v_po/2) - logmvgamma(n,v_pr/2)
-      # check formula... maybe n instead of k in front of log det. ny*(nyup - nulow)/2*ln(2)
 
       return μ_po, P_po, v_po, S_po, logMDD
 

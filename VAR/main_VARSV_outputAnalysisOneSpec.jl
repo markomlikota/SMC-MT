@@ -119,7 +119,7 @@ vTimesUpper     = fGetStatIn_vvvaObject(vvvaStats,vPhiLast,3,"upper")
 vTimesLowerDiff = vTimesLower - vTimes
 vTimesUpperDiff = vTimesUpper - vTimes
 
-plotTimes       = fMyRibbonPlotHere(vPhiLast,vTimes./60,(-1*vTimesLowerDiff./60,vTimesUpperDiff./60),xLabPhiLast,"minutes")
+plotTimes       = fMyRibbonPlotHere(vPhiLast,vTimes./60,(-1*vTimesLowerDiff./60,vTimesUpperDiff./60),xLabPhiLast,"")
 ylims!((0,ylims(plotTimes)[2]))
 
 savefig(sPlotPath * "plot_meanTimes.png")
@@ -251,7 +251,7 @@ function fPlotParticlePostStat(vpp,ss,vvvaStats,sCaption)
 
     pp=vpp[1]
     vPostStat = [mean(getindex.(vvvaStats[3][1],pp,ss)),[mean(getindex.(vvvaStats[2][pphi],pp,ss)) for pphi = 1:nPhiLast]...]
-    ssPlot = plot([0,vPhiLast...],vPostStat,line=(mColsShapes[pp,1],0.9,vThickness[pp],mColsShapes[pp,2]),label=vLTXParLabs[pp], legend = :outerright,xlabel=xLabPhiLast,title=sCaption,xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=11,background_color_legend = nothing)
+    ssPlot = plot([0,vPhiLast...],vPostStat,line=(mColsShapes[pp,1],0.9,vThickness[pp],mColsShapes[pp,2]),label=vLTXParLabs[pp], legend = :outerright,xlabel=xLabPhiLast,title=sCaption,xtickfont=font(14),ytickfont=font(14),guidefont=font(14),legendfontsize=11,background_color_legend = nothing)
     xticks!([0.0,vPhiLast...])
     for pp = vpp[2:end]
         vPostStat = [mean(getindex.(vvvaStats[3][1],pp,ss)),[mean(getindex.(vvvaStats[2][pphi],pp,ss)) for pphi = 1:nPhiLast]...]
@@ -347,9 +347,9 @@ for pInd = 1:9
     st, en      = fFindPlotBounds(boundsType,k.x)
 
     if pInd == 9
-        plot!(k.x[st:en], k.density[st:en], line=(myBlue,2.5,:line), label="\$ p(\\theta | Y,M_1) \$", xtickfont=font(14),ytickfont=font(14),ztickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14)
+        plot!(k.x[st:en], k.density[st:en], line=(myBlue,2.5,:line), label="\$ p(\\theta | Y,M_1) \$", xtickfont=font(14),ytickfont=font(14),ztickfont=font(14),guidefont=font(14),legendfontsize=14)
     else
-        plot!(k.x[st:en], k.density[st:en], line=(myBlue,2.5,:line), label="\$ p(\\theta | Y,M_1) \$", xtickfont=font(14),ytickfont=font(14),ztickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,legend=false)
+        plot!(k.x[st:en], k.density[st:en], line=(myBlue,2.5,:line), label="\$ p(\\theta | Y,M_1) \$", xtickfont=font(14),ytickfont=font(14),ztickfont=font(14),guidefont=font(14),legendfontsize=14,legend=false)
     end
 
     # # Add red vertical line at true value:
@@ -382,7 +382,7 @@ for pInd = 1:9
     ### PLOT OF M0-POSTERIOR (FULL) and M1-(FULL-)POSTERIOR:
 
     # Plot M1 posterior (still in storage as "k"):
-    plot(k.x[st:en],k.density[st:en],label="",line=(myBlue,0.9,2,:line),yticks=false, xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14)
+    plot(k.x[st:en],k.density[st:en],label="",line=(myBlue,0.9,2,:line),yticks=false, xtickfont=font(14),ytickfont=font(14),guidefont=font(14),legendfontsize=14)
 
     # Add M0 posterior:
     k = kde(aAllParticlesM0[:,pInd,end], weights = Weights(mWeights[:,end]))
@@ -549,12 +549,3 @@ ylims!((0,1))
 
 savefig(sPlotPath * "plot_relTimes_Approx.png")
 
-
-
-# Notes on comparing approximated runtimes (not reductions) to actual:
-
-# Analytically approximated runtime underestimates actual runtime for lower phis...
-# ... (and hence underestimates runtime reduction due to MT)
-
-# Adjusting for the fact that some draws are invalid in first stage doesn't help.
-# So underestimation is likely due to the LL-eval being slower for particles that have a very low LL, and there are more such particles in initial stages...

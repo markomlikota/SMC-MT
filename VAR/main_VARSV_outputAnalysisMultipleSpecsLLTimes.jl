@@ -146,7 +146,7 @@ xLabPhiLast     = "\$\\psi_*\$" # "\$\\phi_{N_\\phi}(M_0)\$"
 
 # Times Plot:
 
-plotTimes       = plot(vXaxis,mTimes[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="minutes",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotTimes       = plot(vXaxis,mTimes[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="minutes",title="", xtickfont=font(14),ytickfont=font(14),guidefont=font(14),legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mTimes[:,2],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 plot!(vXaxis,mTimes[:,3],line=(myBlue,0.9,2,vMyShapes[3]),label=vLineLabs[3])
@@ -162,7 +162,7 @@ savefig(sPlotPath * "plot_meanTimes_LLtimes.png")
 
 mRelTimes    = mTimes./mTimes[1,:]'
 
-plotRelTimes    = plot(vXaxis,mRelTimes[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="minutes relative to LT",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotRelTimes    = plot(vXaxis,mRelTimes[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="minutes relative to LT",title="", xtickfont=font(14),ytickfont=font(14),guidefont=font(14),legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mRelTimes[:,2],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 plot!(vXaxis,mRelTimes[:,3],line=(myBlue,0.9,2,vMyShapes[3]),label=vLineLabs[3])

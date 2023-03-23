@@ -42,6 +42,7 @@ using CSV
 using DelimitedFiles
 using LinearAlgebra
 using Statistics
+using LaTeXStrings
 
 
 
@@ -143,7 +144,7 @@ xLabPhiLast     = "\$\\psi_*\$" # "\$\\phi_{N_\\phi}(M_0)\$"
 
 # Times Plot:
 
-plotTimes       = plot(vXaxis,mTimesDGP[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="minutes",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotTimes       = plot(vXaxis,mTimesDGP[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mTimesDGP[:,2],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 plot!(vXaxis,mTimesDGP[:,3],line=(myBlue,0.9,2,vMyShapes[3]),label=vLineLabs[3])
@@ -156,7 +157,7 @@ savefig(sPlotPath * "plot_meanTimes_DGPs.png")
 
 # Relative Times Plot:
 
-plotRelTimes    = plot(vXaxis,mRelTimesDGP[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="minutes relative to LT",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotRelTimes    = plot(vXaxis,mRelTimesDGP[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mRelTimesDGP[:,2],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 plot!(vXaxis,mRelTimesDGP[:,3],line=(myBlue,0.9,2,vMyShapes[3]),label=vLineLabs[3])
@@ -169,7 +170,7 @@ savefig(sPlotPath * "plot_meanRelTimes_DGPs.png")
 
 # Log MDD Std Plot:
 
-plotStds        = plot(vXaxis,mLogMDDStdDGP[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotStds        = plot(vXaxis,mLogMDDStdDGP[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mLogMDDStdDGP[:,2],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 plot!(vXaxis,mLogMDDStdDGP[:,3],line=(myBlue,0.9,2,vMyShapes[3]),label=vLineLabs[3])
@@ -196,7 +197,7 @@ vLineLabs       = ["N = 500","N = 1000"]
 
 # Times Plot:
 
-plotTimes       = plot(vXaxis,mTimesSMC[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="minutes",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotTimes       = plot(vXaxis,mTimesSMC[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mTimesSMC[:,2],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 
@@ -208,7 +209,7 @@ savefig(sPlotPath * "plot_meanTimes_SMCs.png")
 
 # Times Plot with ribbon:
 
-plotTimesRibbon = plot(vXaxis,mTimesSMC[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="minutes",title="", ribbon=(mTimesSMC[:,1]-mTimesLowerSMC[:,1],mTimesUpperSMC[:,1]-mTimesSMC[:,1]),fillalpha=0.2,fillcolor=myBlue, xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotTimesRibbon = plot(vXaxis,mTimesSMC[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", ribbon=(mTimesSMC[:,1]-mTimesLowerSMC[:,1],mTimesUpperSMC[:,1]-mTimesSMC[:,1]),fillalpha=0.2,fillcolor=myBlue, xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mTimesSMC[:,2],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2], ribbon=(mTimesSMC[:,2]-mTimesLowerSMC[:,2],mTimesUpperSMC[:,2]-mTimesSMC[:,2]),fillalpha=0.2,fillcolor=myBlue)
 
@@ -221,7 +222,7 @@ savefig(sPlotPath * "plot_meanTimes_SMCs_ribbon.png")
 
 # Relative Times Plot:
 
-plotRelTimes    = plot(vXaxis,mRelTimesSMC[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="minutes relative to LT",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotRelTimes    = plot(vXaxis,mRelTimesSMC[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mRelTimesSMC[:,2],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 
@@ -233,7 +234,7 @@ savefig(sPlotPath * "plot_meanRelTimes_SMCs.png")
 
 # Log MDD Std Plot:
 
-plotStds        = plot(vXaxis,mLogMDDStdSMC[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotStds        = plot(vXaxis,mLogMDDStdSMC[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mLogMDDStdSMC[:,2],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 
@@ -253,7 +254,7 @@ vMyShapes       = [:dashdot, :solid, :dash, :dot]
 
 # Log MDD Std Plot:
 
-plotStds        = plot(vXaxis,mLogMDDStd[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotStds        = plot(vXaxis,mLogMDDStd[:,1],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mLogMDDStd[:,2],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 plot!(vXaxis,mLogMDDStd[:,3],line=(myBlue,0.9,2,vMyShapes[3]),label=vLineLabs[3])
@@ -277,17 +278,17 @@ vmd         = Matrix{Float64}[mdDGP1, mdDGP2, mdDGP3]
 
 T           = size(vmd[1],1) -1
 
-p1          = fMyPlot(0:T,vmd[3][:,1],"d1","")
+p1          = fMyPlot(0:T,vmd[3][:,1],"\$d_{1t}\$","")
 yLimD1      = ylims(p1)
-p2          = fMyPlot(0:T,vmd[3][:,2],"d2","t")
+p2          = fMyPlot(0:T,vmd[3][:,2],"\$d_{2t}\$","t")
 yLimD2      = ylims(p2)
 
 
 for ddgp = 1:3
 
-    p1          = fMyPlot(0:T,vmd[ddgp][:,1],"d1","")
+    p1          = fMyPlot(0:T,vmd[ddgp][:,1],"\$d_{1t}\$","")
     ylims!((0,yLimD1[2]))
-    p2          = fMyPlot(0:T,vmd[ddgp][:,2],"d2","t")
+    p2          = fMyPlot(0:T,vmd[ddgp][:,2],"\$d_{2t}\$","t")
     ylims!((0,yLimD2[2]))
 
     pp          = plot(p1,p2,layout=(2,1),legend=false)
@@ -363,7 +364,7 @@ mVarISweightsAllDGPs = reshape(mean(aVarISweights,dims=1), (nPhiLast+1,3))'
 mRelVarISweightsAllDGPs = mVarISweightsAllDGPs ./ mVarISweightsAllDGPs[:,1]
 
 
-plotVarISW       = plot(vXaxis,mVarISweightsAllDGPs[1,:],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="V[w-tilde]",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotVarISW       = plot(vXaxis,mVarISweightsAllDGPs[1,:],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mVarISweightsAllDGPs[2,:],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 plot!(vXaxis,mVarISweightsAllDGPs[3,:],line=(myBlue,0.9,2,vMyShapes[3]),label=vLineLabs[3])
@@ -373,7 +374,7 @@ savefig(sPlotPath * "plot_VarISW_DGPs.png")
 
 
 
-plotRelVarISW       = plot(vXaxis,mRelVarISweightsAllDGPs[1,:],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="V[w-tilde] relative to LT",title="", xtickfont=font(12),ytickfont=font(12),xguidefontsize=12,yguidefontsize=12,legendfontsize=12,background_color_legend=nothing)
+plotRelVarISW       = plot(vXaxis,mRelVarISweightsAllDGPs[1,:],line=(myBlue,0.9,2,vMyShapes[1]),label=vLineLabs[1], xlabel=xLabPhiLast,ylabel="",title="", xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend=nothing)
 
 plot!(vXaxis,mRelVarISweightsAllDGPs[2,:],line=(myBlue,0.9,2,vMyShapes[2]),label=vLineLabs[2])
 plot!(vXaxis,mRelVarISweightsAllDGPs[3,:],line=(myBlue,0.9,2,vMyShapes[3]),label=vLineLabs[3])

@@ -20,7 +20,7 @@ function fMyPlot(vx,vy,sCap="",sxLabel="",syLabel="",sLineLabel="",col=:black)
     vx, vy,
     title=sCap, xlabel=sxLabel, ylabel=syLabel, label=sLineLabel,
     grid=false,line=(col,0.9,2,:line),
-    xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,background_color_legend = nothing
+    xtickfont=font(16),ytickfont=font(16),guidefont=font(16),legendfontsize=16,background_color_legend = nothing
     )
 
     return p

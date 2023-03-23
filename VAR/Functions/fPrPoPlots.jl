@@ -76,7 +76,8 @@ function fPlotDistEvol(pInd,yLab,aParticles,mWeights,nLines,boundsType)
 
     vx          = k.x[st:en] #range(-0.2,1.0,length=2048) #
     vy          = k.density[st:en] #range(0.0,2.0,length=2048) #
-    ppp         = plot(ones(en-st+1),vx,vy, camera=(60,30), line=(:black,transpStart,2,:line),label="",xlabel="n",ylabel=yLab,ylims=(k.x[st],k.x[en]))
+    ppp         = plot(ones(en-st+1),vx,vy, camera=(60,30), line=(:black,transpStart,2,:line),label="",xlabel="n",ylabel=yLab,ylims=(k.x[st],k.x[en]),
+    xtickfont=font(16),ytickfont=font(16),guidefont=font(16),legendfontsize=16 )
     xflip!(true)
 
 
@@ -122,7 +123,7 @@ function fPlotDistEvol2(pInd,yLab,aParticles,mWeights,nLines,boundsType)
 
 
     vPlots      = Vector{Any}(undef,nLines)
-    vPlots[1]   = plot(k.x[st:en],k.density[st:en],line=(:black,transpStart,2,:line),label="",xlabel=yLab,yticks=false,yaxis=false)
+    vPlots[1]   = plot(k.x[st:en],k.density[st:en],line=(:black,transpStart,2,:line),label="",xlabel=yLab,yticks=false,yaxis=false, xtickfont=font(16),ytickfont=font(16),guidefont=font(16),legendfontsize=16 )
 
 
     for nn in 2:nLines
@@ -169,7 +170,7 @@ function fPlotDistEvolGR(pInd,yLab,aParticles,mWeights,nLines,boundsType,xAxisTi
 
     vx          = k.x[st:en] #range(-0.2,1.0,length=2048) #
     vy          = k.density[st:en] #range(0.0,2.0,length=2048) #
-    ppp         = plot(ones(en-st+1)*nLines,vx,vy, camera=(75,45), line=(:black,transpStart,2,:line),label="",xlabel="n",ylabel=yLab,ylims=(k.x[st],k.x[en]))
+    ppp         = plot(ones(en-st+1)*nLines,vx,vy, camera=(75,45), line=(:black,transpStart,2,:line),label="",xlabel="n",ylabel=yLab,ylims=(k.x[st],k.x[en]), xtickfont=font(16),ytickfont=font(16),guidefont=font(16),legendfontsize=16 )
     # xflip!(true)
 
 
@@ -222,7 +223,7 @@ function fPlotDistEvol2D(pInd,yLab,aParticles,mWeights,nLines,boundsType,vLineLa
 
     vx          = k.x[st:en] #range(-0.2,1.0,length=2048) #
     vy          = k.density[st:en] #range(0.0,2.0,length=2048) #
-    ppp         = plot(vx,vy,line=(vCols[0.4+0.5*1/nLines],transpStart,vThickness[1],:line), label=vLineLabs[1],xlabel=yLab,xlims=(k.x[st],k.x[en]),background_color_legend = nothing)
+    ppp         = plot(vx,vy,line=(vCols[0.4+0.5*1/nLines],transpStart,vThickness[1],:line), label=vLineLabs[1],xlabel=yLab,xlims=(k.x[st],k.x[en]),background_color_legend = nothing, xtickfont=font(16),ytickfont=font(16),guidefont=font(16),legendfontsize=16 )
     # xflip!(true)
 
 

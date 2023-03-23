@@ -13,21 +13,6 @@
 
 
 
-# function fLogLikFromKF(θ,mData)
-#
-#     Ψ0, Ψ1, Φ1, Φε = fThetaToLSSObjects(θ)
-#
-#     # #check determinacy:
-#     # sum(Ψ1) == 0 ? (return 99) : nothing
-#
-#     vaPredY = fKalmanFilter(mData,Ψ0,Ψ1,Φ1,Φε)[3]
-#
-#     loglik  = fGetLogLik(mData,vaPredY[2],vaPredY[3])[1]
-#
-#     return loglik
-#
-# end
-
 
 
 function fGetParaPointers(vGroupLengths)

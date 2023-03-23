@@ -45,29 +45,3 @@ function fEvalMNIW(Φ,Σ,μ,P,S,v)
 end
 
 
-#
-# function fDrawMNIW(μBar,pBar,sBar,vBar,nDraws)
-#
-#     # Draws Phi and Sigma, given (posterior) parameters (MNIW()).
-#
-#     @eval @everywhere μBar = $μBar
-#     @eval @everywhere pBar = $pBar
-#     @eval @everywhere sBar = $sBar
-#     @eval @everywhere vBar = $vBar
-#
-#     @everywhere k       = size(μBar)[1]
-#     @everywhere n       = size(sBar)[2]
-#     aSig    = SharedArray{Float64}(nDraws,n,n)
-#     aPhi    = SharedArray{Float64}(nDraws,k,n)
-#
-#     @sync @distributed for dd = 1:nDraws
-#
-#         sig, phi = fOneDrawMNIWstationary(μBar,pBar,sBar,vBar)
-#
-#         aSig[dd,:,:]    = sig
-#         aPhi[dd,:,:]    = phi
-#     end
-#
-#     return aSig, aPhi
-#
-# end

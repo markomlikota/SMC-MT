@@ -54,23 +54,6 @@
 #   - For more details on software structuring for SMC estimation, see "HowToSetupSMC-EstimationSoftware.txt"
 
 
-
-# -------------------------------------------------------------------------------
-
-# Improvment suggestions:
-
-# - implement blocking in M-step;
-    # adapt the functions based on the more efficient code written for VAR-ZLB:
-    #
-    # thetax                  = zeros(n_theta)
-    #
-    # mRandomDraws            = Random.rand(MvNormal(zeros(nVary),Matrix(1.0I, nVary, nVary)))
-    #
-    # thetax[vParamVaries]    = thetaMut[vParamVaries] + cSMC* mPropVar_sqrt* mRandomDraws
-    #
-    # thetax[vParamVaries.==0] = thetaMut[vParamVaries.==0]
-
-
 # -------------------------------------------------------------------------------
 
 
@@ -102,34 +85,6 @@
 
     end
 
-    # function fLegitProposalDraw(θ0,c,Σ,vInd)
-    #
-    #     # Draws proposal for the parameters specified by vInd, s.t. the log-likelihood(s) and prior can be evaluated for the overall draw (θ0 with new proposal draw for specified parameters)
-    #
-    #     while true
-    #
-    #         vb        = rand( MultivariateNormal(θ0[vInd], c^2*Σ[vInd,vInd]) )
-    #         v         = copy(θ0)
-    #         #v[setdiff(1:nP,vInd)] = θ0[setdiff(1:nP,vInd)]
-    #         v[vInd]   = vb
-    #
-    #         fIsDrawValid(v) == 1 ? nothing : continue
-    #
-    #         llv, lltv, pv =
-    #         try
-    #             fLL(v), fLLtilde(v), fPriorLogEval(v)
-    #         catch
-    #             99, 99, 99
-    #         end
-    #
-    #         llv != 99 && lltv != 99 && pv != 99 && ~isnan(llv) && ~isnan(lltv)  && ~isnan(pv) ? (return v, [llv, lltv], pv) : nothing
-    #         # Note: -Inf cases are handled by fRWMH1 (it's just a bad draw; no need to restrict)
-    #
-    #     end
-    #
-    # end
-
-    # θ0,vllθ0,pθ0,c,Σ,vDoesParamVary,ϕn = mDraws[ind-1,:],mLogLiks[ind-1,:],vPriors[ind-1],c,Σ,vDoesParamVary,ϕn
     function fRWMH1(θ0,vllθ0,pθ0,c,Σ,vDoesParamVary,ϕn)
 
         # Propagates particle θ0 through one iteration of RWMH
@@ -151,47 +106,6 @@
 
     end
 
-    # function fRWMH1(θ0,vllθ0,pθ0,c,Σ,ϕn,nB,vOrder)
-    #
-    #     # Propagates particle θ0 through one iteration of RWMH using nB blocks
-    #     # Input: θ0, 2-element vector of log-likelihoods at θ0 (set first to zero for likelihood tempering), prior at θ0, proposal distribution objects c & Σ, exponent ϕn for acceptance probability, number of blocks, vector of indices (e.g. randomized) to set up blocks
-    #     # Output:  resulting particle, Boolean for whether proposal was accepted, vector of log-likelihoods at particle, prior at particle
-    #
-    #     blockLength     = Int(floor(length(θ0)/nB))
-    #     vAccept         = zeros(nB,1)
-    #
-    #     for b = 1:nB
-    #
-    #         b < nB ?  vIndices = (b-1)*blockLength .+ (1:blockLength) : vIndices = (b-1)*blockLength .+ (1:length(vOrder)-(b-1)*blockLength)
-    #         vInd                = vOrder[vIndices]
-    #
-    #         v, vllv , pv        = fLegitProposalDraw(θ0,c,Σ,vInd)
-    #         llθ0, lltθ0         = vllθ0
-    #         llv, lltv           = vllv
-    #         ratio               = ϕn*llv + (1-ϕn)*lltv + pv - ϕn*llθ0 - (1-ϕn)*lltθ0 - pθ0
-    #         #isnan(ratio) ? ratio = ϕn*(llv - llθ0) + (1-ϕn)*(lltv-lltθ0) : nothing
-    #         if ϕn==1
-    #             ratio           = ϕn*(llv - llθ0) + pv - pθ0
-    #         end
-    #         # println(isfinite(ratio))
-    #         α                   = max(0,min(1,exp(ratio))) #min(1,exp(ratio))
-    #         vAccept[b]          = rand( Bernoulli(α) )
-    #
-    #         if vAccept[b] == 1
-    #             θ0         = v
-    #             vllθ0      = vllv
-    #             pθ0        = pv
-    #         end
-    #
-    #         b == nB ? (return θ0, mean(vAccept), vllθ0, pθ0) : nothing
-    #
-    #     end
-    #
-    # end
-
-
-    # θ0,vllθ0,pθ0,c,Σ,vDoesParamVary,ϕn,nDraws = mProposalParticles[ii,:],mProposalLogLiks[ii,:],vProposalPriors[ii],c,Σ,vDoesParamVary,ϕn,Nmh
-    # Random.seed!((432 + 100*iiPhi + 432*ii)*setSeed)
     function fRWMH(θ0,vllθ0,pθ0,c,Σ,vDoesParamVary,ϕn,nDraws)
 
         # Propagates θ0 through nDraws iterations of RWMH. See fRWMH1().
@@ -216,31 +130,6 @@
         return mDraws[end,:], sum(vAccept[2:end])/nDraws, mLogLiks[end,:], vPriors[end]
 
     end
-
-    # function fRWMH(θ0,vllθ0,pθ0,c,Σ,ϕn,nDraws,nB,vOrder)
-    #
-    #     # Propagates θ0 through nDraws iterations of RWMH. See fRWMH1().
-    #
-    #     mDraws          = Array{Float64}(undef,nDraws+1,length(θ0))
-    #     vAccept         = Array{Float64}(undef,nDraws+1,1)
-    #     mLogLiks        = Array{Float64}(undef,nDraws+1,2)
-    #     vPriors         = Array{Float64}(undef,nDraws+1,1)
-    #
-    #     mDraws[1,:]     = θ0
-    #     mLogLiks[1,:]   = vllθ0
-    #     vPriors[1]      = pθ0
-    #
-    #     for i = 1:nDraws
-    #
-    #         ind     = i + 1
-    #
-    #         mDraws[ind,:], vAccept[ind], mLogLiks[ind,:], vPriors[ind] = fRWMH1(mDraws[ind-1,:],mLogLiks[ind-1,:],vPriors[ind-1],c,Σ,ϕn,nB,vOrder)
-    #
-    #     end
-    #
-    #     return mDraws[end,:], sum(vAccept[2:end])/nDraws, mLogLiks[end,:], vPriors[end]
-    #
-    # end
 
     function fLegitPriorDraw()
 
@@ -783,16 +672,6 @@ function fSMC(tSettings,sOutputPath,sOutputFilePrefix="",writeFiles=1,setSeed=0,
 
             throw("Blocking in M-step doesn't work yet")
 
-            # mStepTime = @elapsed @sync @distributed for ii = 1:N
-            #
-            #     setSeed != 0 ? Random.seed!((432 + 100*iiPhi + 432*ii)*setSeed) : nothing
-            #
-            #     vOrder      = shuffle(1:vP)
-            #
-            #     mParticlesThisStage[ii,:], vAcceptRateThisStage[ii], mLogLiksThisStage[ii,:], vPriorsThisStage[ii]  = fRWMH(mProposalParticles[ii,:],mProposalLogLiks[ii,:],vProposalPriors[ii],c,Σ,ϕn,Nmh,nB,vOrder)
-            #
-            # end
-
         end
 
         push!(vmParticles,mParticlesThisStage)
@@ -822,10 +701,6 @@ function fSMC(tSettings,sOutputPath,sOutputFilePrefix="",writeFiles=1,setSeed=0,
             fMyCSVAPPEND(sOutputPath * savename,[vϕ[nPhi] vc[nPhi] vAcceptRate[nPhi] vLogMDD[nPhi] vTimes[nPhi] vESS[nPhi]])
 
         end
-
-
-
-        # iiPhi +=1
 
 
 

@@ -112,7 +112,7 @@ vvvaStats       = fGetFileAllEstSpecs(DGPspec,SMCspec,nRun,sFileSuffix,vPhiLast)
 vTimes          = fGetStatIn_vvvaObject(vvvaStats,vPhiLast,3,"mean")
 vTimesStds      = fGetStatIn_vvvaObject(vvvaStats,vPhiLast,3,"std")
 
-plotTimes       = fMyRibbonPlotHere(vPhiLast,vTimes./60,1.64*vTimesStds./60,xLabPhiLast,"minutes")
+plotTimes       = fMyRibbonPlotHere(vPhiLast,vTimes./60,1.64*vTimesStds./60,xLabPhiLast,"")
 ylims!((0,ylims(plotTimes)[2]))
 
 savefig(sPlotPath * "plot_meanTimes.png")
@@ -120,7 +120,7 @@ savefig(sPlotPath * "plot_meanTimes.png")
 
 vRelTimes       = vTimes/vTimes[1]
 
-plotRelTimes    = fMyRibbonPlotHere(vPhiLast,vRelTimes,1.64*vTimesStds,xLabPhiLast,"time relative to LT")
+plotRelTimes    = fMyRibbonPlotHere(vPhiLast,vRelTimes,1.64*vTimesStds,xLabPhiLast,"")
 ylims!((0,ylims(plotRelTimes)[2]))
 
 savefig(sPlotPath * "plot_meanRelTimes.png")
@@ -256,9 +256,9 @@ for pInd in vPIndVary
     st, en      = fFindPlotBounds(boundsType,k.x)
 
     if pInd == vPIndVary[end]
-        plot!(k.x[st:en], k.density[st:en], line=(myBlue,2.5,:line), label="\$ p(\\theta | Y,M_1) \$", xtickfont=font(14),ytickfont=font(14),ztickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14)
+        plot!(k.x[st:en], k.density[st:en], line=(myBlue,2.5,:line), label="\$ p(\\theta | Y,M_1) \$")
     else
-        plot!(k.x[st:en], k.density[st:en], line=(myBlue,2.5,:line), label="\$ p(\\theta | Y,M_1) \$", xtickfont=font(14),ytickfont=font(14),ztickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14,legend=false)
+        plot!(k.x[st:en], k.density[st:en], line=(myBlue,2.5,:line), label="\$ p(\\theta | Y,M_1) \$",legend=false)
     end
 
     # # Add red vertical line at true value:
@@ -291,7 +291,7 @@ for pInd in vPIndVary
     ### PLOT OF M0-POSTERIOR (FULL) and M1-(FULL-)POSTERIOR:
 
     # Plot M1 posterior (still in storage as "k"):
-    plot(k.x[st:en],k.density[st:en],xlabel=yLab,label="",line=(myBlue,0.9,2,:line),yticks=false, xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14)
+    plot(k.x[st:en],k.density[st:en],xlabel=yLab,label="",line=(myBlue,0.9,2,:line),yticks=false, xtickfont=font(16),ytickfont=font(16),guidefont=font(16),legendfontsize=16)
 
     # Add M0 posterior:
     k = kde(aAllParticlesM0[:,pInd,end], weights = Weights(mWeights[:,end]))
@@ -357,11 +357,11 @@ vVarISweights = mean(mVarISweights,dims=1)
 vRelVarISweights = vVarISweights ./ vVarISweights[1]
 
 
-plotVarISW      = fMyRibbonPlotHere(vPhiLast,vVarISweights',zeros(nPhiLast+1),xLabPhiLast,"V[w-tilde]")
+plotVarISW      = fMyRibbonPlotHere(vPhiLast,vVarISweights',zeros(nPhiLast+1),xLabPhiLast,"")
 
 savefig(sPlotPath * "plot_VarISW.png")
 
 
-plotRelVarISW       = fMyRibbonPlotHere(vPhiLast,vRelVarISweights',zeros(nPhiLast+1),xLabPhiLast,"V[w-tilde] relative to LT")
+plotRelVarISW       = fMyRibbonPlotHere(vPhiLast,vRelVarISweights',zeros(nPhiLast+1),xLabPhiLast,"")
 
 savefig(sPlotPath * "plot_RelVarISW.png")

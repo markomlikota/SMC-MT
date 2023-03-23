@@ -375,8 +375,3 @@ for mm = 1:nMeans0
     savefig(string("plot_TS_mm",mm,".png"))
 end
 
-#
-# # Mock plot to get theta printed for figure 1 of paper:
-#
-# plot(collect(1:10),ones(10),xlabel="\$\\theta\$")
-# savefig(string("plot_theta.png"))

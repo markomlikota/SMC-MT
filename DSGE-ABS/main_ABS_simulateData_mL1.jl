@@ -103,13 +103,6 @@ include(sMyPath * "SpecFiles/" * string("script_Modelspec",Modelspec,".jl") )
 # Simulate data:
 
 mY = fSimulate_mL1(θ0,T,randomSeedNumber,randomSeedNumber2)
-# Ψ0, Ψ1, Φ1, Φε, Σ_u = fSolveModelL1(θ0)
-#
-# Ψu = diagm([σ_dy_0, σ_dwnom_0, σ_r_0, σ_infl_0])
-#
-# Random.seed!(354)
-#
-# mY, mX, mε, mu      = fSimulateLinearSS(Ψ0, Ψ1, Ψu, Φ1, Φε, T)
 
 
 # Store data (measurement variables y):
@@ -125,8 +118,6 @@ if writeOutput == 1
     end
     sPathForOutput         = sFolderForOutput * sFileForOutput
 
-    # CSV.write(sPathForOutput,  DataFrame(permutedims(vYlabs)), header=false)
-    # CSV.write(sPathForOutput,  DataFrame(mY), append=true)
     fMyCSVWRITE(sPathForOutput,mY,vYlabs)
 
 end

@@ -209,7 +209,7 @@ if nP == 1
 
     histCol = vColors[nn]
 
-    histogram(vmParticles[nn][:,1],label=string("particles"),weights=vvWeights[nn],linecolor=histCol,normalize=:pdf,fillcolor=histCol,background_color_legend = nothing,xtickfont=font(14),ytickfont=font(14),xguidefontsize=14,yguidefontsize=14,legendfontsize=14)
+    histogram(vmParticles[nn][:,1],label=string("particles"),weights=vvWeights[nn],linecolor=histCol,normalize=:pdf,fillcolor=histCol,background_color_legend = nothing,xtickfont=font(16), ytickfont=font(16), guidefont=font(16),legendfontsize=16)
 
     plot!(vx,pdf.(dProposal,vx), line =(myRed,0.9,2, :line), label="proposal")
     plot!(vx,pdf.(dTarget,vx), line =(myBlue,0.9,2, :line), label="target")
@@ -226,7 +226,7 @@ elseif nP == 2
 
     histCol = vColors[nn]
 
-    scatter(vmParticles[nn][:,2],vmParticles[nn][:,1],marker = (histCol),markerstrokewidth=0.1,markersize=vvWeights[nn]*2,legend=:none)
+    scatter(vmParticles[nn][:,2],vmParticles[nn][:,1],marker = (histCol),markerstrokewidth=0.1,markersize=vvWeights[nn]*2,legend=:none, xtickfont=font(16), ytickfont=font(16), guidefont=font(16)   )
 
     mPDFg = [pdf(dProposal,[i,j]) for i in vx, j in vx]
     plot!(vx,vx,mPDFg,st=:contour,color=vDarkReds,linewidth=2,label="proposal",colorbar = false,levels=5)

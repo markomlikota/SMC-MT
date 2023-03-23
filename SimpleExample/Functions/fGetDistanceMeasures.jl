@@ -18,7 +18,6 @@ end
 
 
 
-# vμ1,mΣ1,vμ0,mΣ0 = μf,σf^2,μg,σg^2
 function fGetDistanceMeasures(vμ1,mΣ1,vμ0,mΣ0)
 
 
@@ -54,20 +53,6 @@ function fGetDistanceMeasures(vμ1,mΣ1,vμ0,mΣ0)
         IS          = ISterm1 * ISterm2 - 1
         IS          = log(1+IS)
     else
-        # M           = 1000000
-        # vPDFratios  = zeros(M,1)
-        # if k == 1
-        #     for dd = 1:M
-        #         θ = rand(Normal(vμ0,mΣ0))
-        #         vPDFratios[dd] = pdf(Normal(vμ1,mΣ1),θ) / pdf(Normal(vμ0,mΣ0),θ)
-        #     end
-        # else
-        #     for dd = 1:M
-        #         θ = rand(MvNormal(vμ0,mΣ0))
-        #         vPDFratios[dd] = pdf(MvNormal(vμ1,mΣ1),θ) / pdf(MvNormal(vμ0,mΣ0),θ)
-        #     end
-        # end
-        # IS          = mean(vPDFratios.^2) - 1
         IS          = NaN
     end
 

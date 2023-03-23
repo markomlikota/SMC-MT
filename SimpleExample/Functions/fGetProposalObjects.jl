@@ -25,7 +25,6 @@ function fGetProposalObjects(μg,σg)
 
     function fEvalLogProposal(θ)
 
-        # prob = pdf(Normal(μg,σg),θ)[1]
         prob = logpdf(Normal(μg,σg),θ)[1]
 
         return prob

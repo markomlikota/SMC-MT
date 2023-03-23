@@ -87,24 +87,6 @@ function fPriorDraw_SVx4()
 
 end
 
-# # Construct prior for ξ:
-#
-# dist = InverseGamma(fMyInvGamma2(0.4,4.0)...)
-# x = 0.0:0.01:2
-# plot(x, pdf.(dist, x.^2), label="1")
-#
-# dist = InverseGamma(fMyInvGamma2(0.3,2.0)...)
-# plot!(x, pdf.(dist, x.^2), label="2")
-#
-# M   = 100000
-# mRVs = zeros(M,2)
-# for mm = 1:M
-#     mRVs[mm,1] = sqrt( rand(InverseGamma(fMyInvGamma2(0.4,4.0)...)) )
-#     mRVs[mm,2] = sqrt( rand(InverseGamma(fMyInvGamma2(0.3,2.0)...)) )
-# end
-#
-# fGetParticleStats(ones(M),mRVs)
-
 
 function fPriorLogEval_SVx4(ϑ)
 

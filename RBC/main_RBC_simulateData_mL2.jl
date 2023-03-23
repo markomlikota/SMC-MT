@@ -119,15 +119,13 @@ if writeOutput == 1
     if useModelspecInFileName == 0 || useModelspecInFileName == 2
         sFileForOutput         = "Data_" * string("dgp",DGPspec) * ".csv"
         sPathForOutput         = sFolderForOutput * sFileForOutput
-        # CSV.write(sPathForOutput,  DataFrame(permutedims(vYlabs)), header=false)
-        # CSV.write(sPathForOutput,  DataFrame(mY), append=true)
+
         fMyCSVWRITE(sPathForOutput,mY,vYlabs)
     end
     if useModelspecInFileName == 1 || useModelspecInFileName == 2
         sFileForOutput         = "Data_" * string("dgp",DGPspec) * string("_m",Modelspec) * ".csv"
         sPathForOutput         = sFolderForOutput * sFileForOutput
-        # CSV.write(sPathForOutput,  DataFrame(permutedims(vYlabs)), header=false)
-        # CSV.write(sPathForOutput,  DataFrame(mY), append=true)
+
         fMyCSVWRITE(sPathForOutput,mY,vYlabs)
     end
 
@@ -166,33 +164,6 @@ if writeOutput == 1
 
 end
 
-
-# # Plot all (econometric) state variables individually:
-#
-# vPlots = Array{Any}(undef,1,size(mX,2))
-#
-# vXlabs  = ["K'","L","Y","I"]
-#
-# for xx in 1:size(mX,2)
-#
-#     vPlots[xx]                 = fMyPlot(0:T,mX[:,xx],vXlabs[xx],"t")
-#
-#     if writeOutput == 1
-#
-#         if useModelspecInFileName == 0 || useModelspecInFileName == 2
-#             sFileForOutput         = "Data_" * string("dgp",DGPspec) * string("_var_",vXlabs[xx]) * ".png"
-#             sPathForOutput         = sFolderForOutput * sFileForOutput
-#             savefig(sPathForOutput)
-#         end
-#         if useModelspecInFileName == 1 || useModelspecInFileName == 2
-#             sFileForOutput         = "Data_" * string("dgp",DGPspec) * string("_m",Modelspec)* string("_var_",vXlabs[xx]) * ".png"
-#             sPathForOutput         = sFolderForOutput * sFileForOutput
-#             savefig(sPathForOutput)
-#         end
-#
-#     end
-#
-# end
 
 
 # Compute sample variance of y^o, i^o, l^o to determine appropriate measurement error variances:

@@ -106,15 +106,6 @@ include(sMyPath * "SpecFiles/" * string("script_Modelspec",Modelspec,".jl") )
 # Simulate data:
 
 mY = fSimulate_mL2(θ0,T,randomSeedNumber,randomSeedNumber2)
-# fΦ, fΨ, fDrawInitialStatesBSPF = fSolveModelL2(θ0)
-#
-# nY      = 4
-# nS      = 7
-# nε      = 4
-#
-# Random.seed!(354)
-#
-# mY, mX, mε, mu = fSimulate_mL2(fΨ,fΦ,θ0,nY,nS,nε, T)
 
 
 # Store data (measurement variables y):
@@ -125,15 +116,13 @@ if writeOutput == 1
     if useModelspecInFileName == 0 || useModelspecInFileName == 2
         sFileForOutput         = "Data_" * string("dgp",DGPspec) * ".csv"
         sPathForOutput         = sFolderForOutput * sFileForOutput
-        # CSV.write(sPathForOutput,  DataFrame(permutedims(vYlabs)), header=false)
-        # CSV.write(sPathForOutput,  DataFrame(mY), append=true)
+
         fMyCSVWRITE(sPathForOutput,mY,vYlabs)
     end
     if useModelspecInFileName == 1 || useModelspecInFileName == 2
         sFileForOutput         = "Data_" * string("dgp",DGPspec) * string("_m",Modelspec) * ".csv"
         sPathForOutput         = sFolderForOutput * sFileForOutput
-        # CSV.write(sPathForOutput,  DataFrame(permutedims(vYlabs)), header=false)
-        # CSV.write(sPathForOutput,  DataFrame(mY), append=true)
+
         fMyCSVWRITE(sPathForOutput,mY,vYlabs)
     end
 

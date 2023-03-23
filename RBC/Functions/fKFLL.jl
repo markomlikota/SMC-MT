@@ -25,8 +25,6 @@ function fMyMNDraw(vμ,mΣ)
 end
 
 
-# mData,Ψ0,Ψ1,Φ1,Φε,s0,P00,Σ_u = mData,Ψ0,Ψ1,Φ1,Φε,1,1,Ψu*Ψu'
-
 function fKalmanFilter(mData,Ψ0,Ψ1,Φ1,Φε,s0=0,P00=1,Σ_u=0)
 
       # Inputs: - matrix (T x nY) of data (for Y)
@@ -145,40 +143,3 @@ end
 
 ll(x,μ,Σ) = -length(μ)/2 * log(2π) - 1/2 * logdet(Σ) - 1/2 * (x-μ)' * inv(Σ) * (x-μ)
 
-# function fGetLogLik(mData,mPredMeanY,aPredVarY)
-#
-#       nY, T         = size(mData)
-#
-#       vIncrements   = [ ll(mData[:,t],mPredMeanY[:,t],aPredVarY[:,:,t]) for t = 1:T ]
-#
-#       loglik        = sum(vIncrements)
-#
-#       return loglik, vIncrements
-#
-# end
-#
-#
-#
-# function fKFOneStep(μs,Σs,vYY,Ψ0, Ψ1, Ψu, Φ1, Φε)
-#
-#       Σ_u = Ψu*Ψu'
-#
-#       # --- 1. Forecasting ---
-#
-#       ## a) States
-#       μPredS   = Φ1* μs
-#       ΣPredS  = Φ1* Σs* Φ1' + Φε* Φε'
-#
-#       ## b) Measurement
-#       μPredY   = Ψ0 + Ψ1* μPredS
-#       ΣPredY  = Ψ1* ΣPredS* Ψ1' + Σ_u
-#
-#       # --- 2. Updating ---
-#
-#       predError         = vYY - μPredY
-#       μs_   = μPredS + ΣPredS* Ψ1'* myInv(ΣPredY)* predError
-#       Σs_  = ΣPredS - ΣPredS* Ψ1'* myInv(ΣPredY)* Ψ1* ΣPredS
-#
-#       return μs_, Σs_, μPredY, ΣPredY
-#
-# end

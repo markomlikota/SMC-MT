@@ -29,12 +29,20 @@ Each of these folders contains a separate readme, which shortly explains
 the Julia scripts contained in the folder and contains instructions
 on how to replicate results (plots) from the paper.
 
-
-
-Also, this folder contains  a txt file "HowToSetupSMC-EstimationSoftware.txt",
-which provides a best practice guide on how to set up software for estimating a
-model using SMC-MT.
-
-Each of the above three folders contains a separate version of the SMC function
-that allows for model tempering (although they are largely overlapping).
+Sidenote: Each of these folders contains a separate version of the SMC function
+(although they are largely overlapping). 
 The best and most general function is in the folder for the RBC illustration.
+
+
+
+Also, there is a fifth folder "Template" containing the template-script "SMCMT.jl", 
+which can be easily adjusted to apply SMC-MT for one's own application, 
+with accompanying instructions and comments. 
+The script "SMCMT_example.jl" uses this template to estimate a very simple model.
+
+
+Depending on one's computer, one might need to adjust the functions writing, reading and appending cdv-files.
+See comment and code in fFolderFileManagment.jl, which exists in each of application-folders.
+
+
+
